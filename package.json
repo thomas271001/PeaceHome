@@ -1,0 +1,7 @@
+{
+  "name": "peacehome-kidney-screening",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Peace Home Kidney Disease Free Region: resident self-screening MVP (Draft v0.1)",
+  "scripts": { "build": "python3 build.py", "test": "node src/test.js" }
+}

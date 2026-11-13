@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
+<title>Peace Home Kidney Screening</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap">
+<style>
+/* Layout: the resident app is one calm column, one question per screen, grouped option lists and a
+   bottom action bar within thumb reach. The care team gets a separate sidebar, list and detail view
+   that collapses to list-then-detail on a phone. The one signature element is the "when to book" rail. */
+:root {
+  --bg: #EFF2F6; --surface: #FFFFFF; --surface-2: #F6F8FB; --ink: #0E1620; --ink-2: #4B5866;
+  --line: #DAE0E8; --control: #7A8696;
+  --accent: #0B5E8F; --accent-ink: #FFFFFF; --accent-soft: #E1EDF6;
+  --high: #A5381A; --high-bg: #FBE7DF; --med: #735000; --med-bg: #F8EBC8; --low: #1B6642; --low-bg: #DDF0E5;
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Malayalam', sans-serif;
+  --font-display: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Malayalam', sans-serif;
+  --glass: rgba(239, 242, 246, .82);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #090D12; --surface: #141A21; --surface-2: #1C242D; --ink: #EAF0F6; --ink-2: #A3B0BE;
+    --line: #28323D; --control: #7B8896; --accent: #6DB8E8; --accent-ink: #06141F; --accent-soft: #14293A;
+    --high: #FF9C7F; --high-bg: #3B1D14; --med: #F2C65F; --med-bg: #382A0B; --low: #7FD6A3; --low-bg: #12301F;
+    --glass: rgba(9, 13, 18, .82); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #090D12; --surface: #141A21; --surface-2: #1C242D; --ink: #EAF0F6; --ink-2: #A3B0BE;
+  --line: #28323D; --control: #7B8896; --accent: #6DB8E8; --accent-ink: #06141F; --accent-soft: #14293A;
+  --high: #FF9C7F; --high-bg: #3B1D14; --med: #F2C65F; --med-bg: #382A0B; --low: #7FD6A3; --low-bg: #12301F;
+  --glass: rgba(9, 13, 18, .82); color-scheme: dark;
+}
+@media (prefers-contrast: more) {
+  :root:not([data-theme="dark"]) { --ink: #000000; --ink-2: #2E3945; --control: #4A5663; --line: #8A96A3; --accent: #08486F; --accent-soft: #D3E5F2; }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --ink: #FFFFFF; --ink-2: #CBD5E0; --control: #AEB9C6; --line: #5B6773; --accent: #9CD0F2; --accent-soft: #1D3C52; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 1.0625rem; line-height: 1.5;
+  padding-block: 0; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+html[lang="ml"] body { line-height: 1.75; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3, p { margin: 0; overflow-wrap: anywhere; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; }
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* shared controls */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 12px 24px; border-radius: 14px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 1.0625rem; }
+.btn:active { filter: brightness(.9); }
+.btn.secondary { background: transparent; color: var(--accent); }
+.btn.quiet { background: transparent; border-color: transparent; color: var(--accent); }
+.btn.danger { background: transparent; border-color: var(--high); color: var(--high); }
+.btn.small { min-height: 44px; padding: 8px 16px; font-size: .9375rem; border-radius: 12px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.seg { display: inline-flex; border: 1.5px solid var(--control); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.tools { display: flex; align-items: center; gap: 8px; }
+.tsw { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0; background: transparent; border: 0; border-radius: 16px; }
+.tsw .trk { position: relative; display: block; width: 58px; height: 32px; border-radius: 16px; border: 2px solid var(--control); background: var(--surface); }
+.tsw .bg { position: absolute; top: 6px; color: var(--ink-2); display: block; line-height: 0; }
+.tsw .bg.l { left: 6px; } .tsw .bg.r { right: 6px; }
+.tsw .th { position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; transition: transform .2s ease; }
+.tsw[aria-checked="true"] .th { transform: translateX(26px); }
+@media (prefers-reduced-motion: reduce) { .tsw .th { transition: none; } }
+.seg { max-width: 100%; }
+.seg button { flex: 1 1 auto; min-width: 0; border: 0; background: transparent; min-height: 44px; padding: 6px 14px; font-size: .9375rem; overflow-wrap: anywhere; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.grouplabel { font-size: .9375rem; color: var(--ink-2); margin: 24px 16px 8px; }
+.group { background: var(--surface); border-radius: 16px; overflow: hidden; border: 1.5px solid var(--line); }
+.group > * + * { border-top: 1.5px solid var(--line); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 56px; padding: 12px 16px; background: transparent; border: 0; text-align: left; font-size: 1.0625rem; }
+.row .lbl { min-width: 0; overflow-wrap: anywhere; }
+.row[aria-checked="true"], .row[aria-pressed="true"] { background: var(--accent-soft); font-weight: 700; }
+.row .tick { flex: none; width: 28px; height: 28px; display: grid; place-items: center; color: var(--accent); }
+.row .tick.box { border: 2px solid var(--control); border-radius: 50%; color: transparent; }
+.row[aria-checked="true"] .tick.box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.row.subtle .lbl { color: var(--ink-2); }
+.row.subtle[aria-checked="true"] .lbl { color: var(--ink); }
+.field { display: grid; gap: 6px; }
+.field > label, .field > .flabel { font-weight: 700; font-size: .9375rem; }
+.input, select.input { width: 100%; min-height: 52px; padding: 8px 14px; background: var(--surface); border: 2px solid var(--control); border-radius: 12px; font-size: 1.0625rem; }
+.input[aria-invalid="true"] { border-color: var(--high); }
+.unit { position: relative; }
+.unit .input { padding-right: 72px; }
+.input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+.input[type=number]::-webkit-inner-spin-button, .input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.unit span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--ink-2); pointer-events: none; }
+.help { font-size: .9375rem; color: var(--ink-2); }
+.errmsg { font-size: .9375rem; color: var(--high); font-weight: 700; }
+
+/* resident app */
+.app { max-width: 560px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; }
+.topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding-top: 12px; min-height: 64px; }
+.topbar .btn.quiet { padding-left: 4px; margin-left: -4px; }
+.progress { margin: 4px 0 24px; }
+.progress .cap { font-size: .9375rem; color: var(--ink-2); margin-bottom: 8px; }
+.progress .track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress .track i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+main.screen { flex: 1; padding-bottom: 24px; }
+main.screen:focus { outline: none; }
+.title { font-size: 2.125rem; line-height: 1.15; margin: 16px 0 12px; }
+.qh { font-size: 1.625rem; line-height: 1.3; margin-bottom: 20px; }
+.qh:focus { outline: none; }
+html[lang="ml"] .title { line-height: 1.4; } html[lang="ml"] .qh { line-height: 1.55; }
+.lead { color: var(--ink-2); margin-bottom: 8px; }
+.note { margin-top: 12px; font-size: .9375rem; color: var(--ink-2); }
+.bar { position: sticky; bottom: 0; margin-inline: -16px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--bg); border-top: 1.5px solid var(--line); display: grid; gap: 8px; }
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .bar { background: var(--glass); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); }
+}
+@media (prefers-reduced-transparency: reduce) { .bar { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.bar .btn { width: 100%; }
+.footer { text-align: center; font-size: .875rem; color: var(--ink-2); padding: 16px 0; }
+.footer .btn { margin-top: 4px; }
+
+/* result and the "when to book" rail */
+.eyebrow { display: flex; align-items: center; gap: 8px; font-size: .9375rem; font-weight: 700; color: var(--accent); margin-top: 16px; }
+.done { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; padding: 14px 16px; border-radius: 14px; background: var(--low-bg); color: var(--low); font-weight: 700; }
+.saved { margin-top: 16px; font-size: .9375rem; color: var(--ink-2); }
+
+/* contact sheet */
+dialog.sheet { border: 0; padding: 0; background: var(--surface); color: var(--ink); width: min(560px, 100%); max-width: 100%; margin: auto auto 0; border-radius: 22px 22px 0 0; max-height: 92dvh; overflow: auto; }
+dialog.sheet::backdrop { background: rgba(0, 0, 0, .45); }
+@media (min-width: 640px) { dialog.sheet { margin: auto; border-radius: 22px; } }
+.sheet form { padding: 8px 20px calc(20px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 16px; }
+.sheethead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sheethead h2 { font-size: 1.375rem; }
+.grab { width: 40px; height: 5px; border-radius: 3px; background: var(--control); margin: 8px auto 4px; opacity: .6; }
+
+/* care team */
+.carewrap { max-width: 1280px; margin: 0 auto; padding-bottom: 40px; }
+.caretop { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 12px 0; }
+.caretop h1 { font-size: 1.625rem; margin-right: auto; }
+.care { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.care .side { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.side .item { text-align: left; flex: none; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1.5px solid var(--control); border-radius: 999px; background: var(--surface); font-size: .9375rem; }
+.side .item[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 700; }
+.side .count { font-variant-numeric: tabular-nums; opacity: .85; }
+.side .sep { display: none; }
+.listpane, .detailpane { min-width: 0; }
+.care.show-detail .listpane, .care.show-detail .side { display: none; }
+.care:not(.show-detail) .detailpane { display: none; }
+.search { margin-bottom: 12px; }
+.recs { display: grid; gap: 8px; }
+.rec { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; align-items: center; width: 100%; text-align: left; min-height: 64px; padding: 12px 16px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; }
+.rec[aria-current="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.rec .name { font-weight: 700; overflow-wrap: anywhere; }
+.rec .sub { grid-column: 2; font-size: .9375rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.tag { font-size: .875rem; border: 1.5px solid var(--control); border-radius: 8px; padding: 0 8px; color: var(--ink-2); }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 2px 12px 2px 10px; border-radius: 999px; font-weight: 700; font-size: .9375rem; }
+.banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding: 12px 16px; margin-bottom: 12px; border-radius: 14px; background: var(--med-bg); color: var(--med); font-size: .9375rem; }
+.banner.info { background: var(--accent-soft); color: var(--ink); }
+.empty { padding: 32px 16px; text-align: center; color: var(--ink-2); border: 2px dashed var(--control); border-radius: 16px; display: grid; gap: 16px; justify-items: center; }
+.dhead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-bottom: 8px; }
+.dhead h2 { font-size: 1.625rem; margin-right: auto; overflow-wrap: anywhere; }
+.kv { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 16px; }
+.kv > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.kv > span:last-child { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kv .u { color: var(--med); }
+.stepper { width: 96px; min-height: 44px; text-align: right; font-variant-numeric: tabular-nums; padding: 4px 10px; }
+.only-compact { display: inline-flex; }
+@media (min-width: 1000px) {
+  .care { grid-template-columns: 250px 380px minmax(0, 1fr); align-items: start; }
+  .care .side { flex-direction: column; overflow: visible; padding: 0; gap: 4px; }
+  .side .item { border: 0; border-radius: 12px; justify-content: space-between; background: transparent; padding: 8px 14px; font-size: 1rem; }
+  .side .item[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); }
+  .side .item .l { display: inline-flex; align-items: center; gap: 8px; }
+  .side .sep { display: block; height: 1.5px; background: var(--line); margin: 8px 0; }
+  .care.show-detail .listpane, .care.show-detail .side, .care:not(.show-detail) .detailpane { display: block; }
+  .care .side { display: flex; }
+  .only-compact { display: none; }
+  .detailpane { position: sticky; top: 8px; }
+}
+@media (max-width: 480px) { .title { font-size: 1.875rem; } .qh { font-size: 1.5rem; } }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.why { margin-top: 12px; color: var(--ink-2); }
+.subhead { font-size: 1.1875rem; margin: 28px 0 12px; }
+.st { flex: none; }
+.eyebrow .st { color: var(--accent); }
+.path { list-style: none; margin: 0; padding: 0; }
+.path > li { position: relative; padding: 0 0 22px 44px; }
+.path > li::before { content: ''; position: absolute; left: 13px; top: 30px; bottom: 2px; width: 2px; background: var(--line); }
+.path > li:last-child { padding-bottom: 0; }
+.path > li:last-child::before { display: none; }
+.path .dot { position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--control); background: var(--surface); font-size: .875rem; font-weight: 700; color: var(--ink-2); }
+.path > li.is-done .dot { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.path > li.now .dot { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); animation: settle .5s ease-out both; }
+.path .ptitle { font-weight: 700; padding-top: 2px; overflow-wrap: anywhere; }
+.path .tests { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; color: var(--ink-2); font-size: .9375rem; }
+.path .tests li { padding: 10px 14px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; overflow-wrap: anywhere; }
+.path .tests b { color: var(--ink); }
+@keyframes settle { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .path > li.now .dot { animation: none; } }
+.rec .ic { color: var(--ink-2); display: inline-flex; } .rec .ic.yes { color: var(--accent); }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 2px 12px 2px 10px; border-radius: 999px; font-weight: 700; font-size: .9375rem; }
+.pill.yes { background: var(--accent-soft); color: var(--accent); }
+.pill.no { background: var(--surface-2); color: var(--ink-2); border: 1.5px solid var(--line); }
+</style>
+
+</head>
+<body>
+<div id="app"></div>
+
+<script>/* Scoring for the Community Screening form (nephrologist-approved, Peace Home).
+   Pure functions, no DOM. Runs in Node for tests and is inlined into the page.
+
+   Rule (form, step 1): a person should have the kidney screening test if
+     - any item in Part I applies, OR
+     - the Part II score is `threshold` or more (the form says "four or more" in step 1,
+       and "more than four" in the Part II note: we use 4 or more, see docs). */
+
+var DEFAULT_CONFIG = {
+  version: 2,
+  threshold: 4,
+  ageMid: 1,      /* Part II item 4: age 40 to 59 */
+  ageHigh: 2,     /* Part II item 5: age 60 and above */
+  obesity: 1, stones: 1, painkillers: 1,
+  diabetes: 1, heartAttack: 1, stroke: 1, anaemia: 1, smoking: 1, familyKidney: 1
+};
+
+var PART1_IDS = ['i1', 'i2', 'i3', 'i4', 'i5'];
+/* Part II items the resident ticks. Items 4 and 5 are worked out from age. */
+var PART2_TICK = [
+  { id: 'ii1', key: 'obesity' }, { id: 'ii2', key: 'stones' }, { id: 'ii3', key: 'painkillers' },
+  { id: 'ii6', key: 'diabetes' }, { id: 'ii7', key: 'heartAttack' }, { id: 'ii8', key: 'stroke' },
+  { id: 'ii9', key: 'anaemia' }, { id: 'ii10', key: 'smoking' }, { id: 'ii11', key: 'familyKidney' }
+];
+
+function validAge(v) {
+  var n = Number(v);
+  return v !== '' && v != null && isFinite(n) && Math.floor(n) === n && n >= 1 && n <= 120;
+}
+
+function scoreScreening(a, cfgIn) {
+  var cfg = Object.assign({}, DEFAULT_CONFIG, cfgIn || {});
+  if (!validAge(a.age)) throw new Error('Invalid age');
+  var age = Number(a.age);
+
+  var part1 = PART1_IDS.filter(function (id) { return a[id] === true; });
+
+  var items = [];
+  if (age >= 60) items.push({ id: 'ii5', key: 'ageHigh', points: cfg.ageHigh });
+  else if (age >= 40) items.push({ id: 'ii4', key: 'ageMid', points: cfg.ageMid });
+  PART2_TICK.forEach(function (it) {
+    if (a[it.id] === true) items.push({ id: it.id, key: it.key, points: cfg[it.key] });
+  });
+  var score = items.reduce(function (s, it) { return s + Number(it.points); }, 0);
+
+  var part1Any = part1.length > 0;
+  var scoreMet = score >= cfg.threshold;
+  return {
+    eligible: part1Any || scoreMet,
+    part1: part1, part1Any: part1Any,
+    score: score, items: items, scoreMet: scoreMet, threshold: cfg.threshold,
+    age: age
+  };
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { DEFAULT_CONFIG: DEFAULT_CONFIG, PART1_IDS: PART1_IDS, PART2_TICK: PART2_TICK, validAge: validAge, scoreScreening: scoreScreening };
+}
+</script>
+<script>/* Items of the Community Screening form. Malayalam is copied from the nephrologist-approved form
+   (Community_Screening.pdf). English is a working translation. */
+
+var PART_I = [
+  { id: 'i1', en: 'High blood pressure', ml: 'ഉയർന്ന രക്ത സമ്മർദ്ദമുള്ളവർ' },
+  { id: 'i2', en: 'Heart disease', ml: 'ഹൃദ്രോഗമുള്ളവർ' },
+  { id: 'i3', en: 'Kidney disease already confirmed', ml: 'ഇതിനകം കിഡ്നി രോഗം സ്ഥിരീകരിച്ചവർ' },
+  { id: 'i4', en: 'Needed dialysis at any time in the past', ml: 'മുൻപ് എപ്പോഴെങ്കിലും ഡയാലിസിസിന് വിധേയമായിട്ടുള്ളവർ' },
+  { id: 'i5', en: 'Higher than normal protein (albumin) in the urine', ml: 'മൂത്രത്തിൽ പ്രോട്ടീനിന്റെ (ആൽബുമിൻ) അളവ് കൂടുതലുള്ളവർ' }
+];
+
+/* Part II. `derived: true` rows come from age and are not ticked by the resident. */
+var PART_II = [
+  { id: 'ii1', key: 'obesity', en: 'Excess weight (overweight)', ml: 'അമിത വണ്ണം' },
+  { id: 'ii2', key: 'stones', en: 'Recurrent kidney stones', ml: 'ആവർത്തിച്ചുള്ള കിഡ്നിയിലെ കല്ല്' },
+  { id: 'ii3', key: 'painkillers', en: 'Long-term use of medicines that can affect the kidneys (painkillers)', ml: 'ദീർഘകാലമായി കിഡ്നിയെ ബാധിക്കാവുന്ന മരുന്നുകളുടെ (വേദനസംഹാരിയുടെ) ഉപയോഗം' },
+  { id: 'ii4', key: 'ageMid', derived: true, en: 'Age 40 to 59', ml: 'പ്രായം 40 മുതൽ 59 വരെ' },
+  { id: 'ii5', key: 'ageHigh', derived: true, en: 'Age 60 and above', ml: 'പ്രായം 60 നു മുകളിൽ' },
+  { id: 'ii6', key: 'diabetes', en: 'Diabetes', ml: 'പ്രമേഹം' },
+  { id: 'ii7', key: 'heartAttack', en: 'Heart attack', ml: 'ഹൃദയാഘാതം' },
+  { id: 'ii8', key: 'stroke', en: 'Stroke', ml: 'പക്ഷാഘാതം' },
+  { id: 'ii9', key: 'anaemia', en: 'Anaemia', ml: 'അനീമിയ' },
+  { id: 'ii10', key: 'smoking', en: 'Smoking', ml: 'പുകവലി' },
+  { id: 'ii11', key: 'familyKidney', en: 'Kidney disease confirmed in anyone in the family', ml: 'കുടുംബത്തിൽ ആർക്കെങ്കിലും കിഡ്നി രോഗം സ്ഥിരീകരിച്ചിട്ടുള്ളവർ' }
+];
+
+/* The kidney screening test, as listed on the form. */
+var TESTS = [
+  { en: 'Urine Routine', enNote: 'Routine urine examination', ml: 'മൂത്രത്തിന്റെ സാധാരണ പരിശോധന' },
+  { en: 'Albumin / Creatinine ratio', enNote: 'Urine test', ml: 'ആൽബുമിൻ / ക്രിയാറ്റിനിൻ അനുപാതം' },
+  { en: 'Blood Creatinine Test', enNote: 'Blood test for creatinine', ml: 'രക്തത്തിലെ ക്രിയാറ്റിനിൻ പരിശോധന' }
+];
+
+function itemById(id) {
+  return PART_I.concat(PART_II).filter(function (x) { return x.id === id; })[0];
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { PART_I: PART_I, PART_II: PART_II, TESTS: TESTS, itemById: itemById };
+}
+</script>
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('app');
+  var QKEY = 'kdfr_queue_v2', CFGKEY = 'kdfr_cfg_v2', THEME_KEY = 'kdfr_theme', SCHEMA = 2;
+  var STEPS = ['age', 'p1', 'p2'];
+
+  var S = {
+    view: 'resident', lang: 'en', screen: 'welcome', consent: false, assisted: false,
+    a: {}, ack1: false, ack2: false, stepIdx: 0, rec: null, res: null, saveState: '',
+    sheet: false, contactSent: false, contact: { name: '', mobile: '' }, touched: false,
+    cfg: Object.assign({}, DEFAULT_CONFIG), cfgDraft: null, theme: 'light',
+    standalone: false, db: null, user: null, dl: null, canEdit: null, records: {}, queue: [], dbErr: '', subscribed: false,
+    filter: 'all', query: '', careSel: null, careMode: 'records', confirm: '', busy: '', msg: '', focusQ: false
+  };
+
+  /* ---------- text. The form items themselves are in criteria.js (Malayalam copied from the approved form).
+     Other Malayalam below is a working draft and needs review by a native speaker. ---------- */
+  var T = {
+    brandSub: ['Peace Home · Ongallur', 'പീസ് ഹോം · ഓങ്ങല്ലൂർ'],
+    wTitle: ['Community kidney screening', 'കമ്മ്യൂണിറ്റി കിഡ്നി സ്ക്രീനിംഗ്'],
+    wLead: ['Two short checklists, about 2 minutes. Your answers are private and shared only with the Peace Home care team.',
+      'രണ്ട് ചെറിയ ചെക്ക്‌ലിസ്റ്റുകൾ, ഏകദേശം 2 മിനിറ്റ്. നിങ്ങളുടെ ഉത്തരങ്ങൾ സ്വകാര്യമാണ്, പീസ് ഹോം കെയർ ടീമുമായി മാത്രമേ പങ്കിടുകയുള്ളൂ.'],
+    consent: ['I agree to share my answers with Peace Home', 'എന്റെ ഉത്തരങ്ങൾ പീസ് ഹോമുമായി പങ്കിടാൻ ഞാൻ സമ്മതിക്കുന്നു'],
+    assisted: ['A volunteer or health worker is filling this in for the resident', 'ഒരു സന്നദ്ധപ്രവർത്തകനോ ആരോഗ്യപ്രവർത്തകനോ താമസക്കാരന് വേണ്ടി ഇത് പൂരിപ്പിക്കുന്നു'],
+    start: ['Start', 'തുടങ്ങുക'], back: ['Back', 'പിന്നോട്ട്'], next: ['Next', 'അടുത്തത്'], seeResult: ['See result', 'ഫലം കാണുക'],
+    careTeam: ['Care team', 'കെയർ ടീം'], language: ['Language', 'ഭാഷ'], darkMode: ['Dark mode', 'ഡാർക്ക് മോഡ്'],
+    step: ['Step', 'ഘട്ടം'], of: ['of', '/'], aboutYou: ['About you', 'നിങ്ങളെക്കുറിച്ച്'], partI: ['Part I', 'ഭാഗം I'], partII: ['Part II', 'ഭാഗം II'],
+    ageTitle: ['How old are you?', 'നിങ്ങളുടെ പ്രായം എത്രയാണ്?'], ageLabel: ['Age', 'പ്രായം'], yrs: ['years', 'വയസ്സ്'],
+    ageBad: ['Enter an age between 1 and 120.', '1 മുതൽ 120 വരെയുള്ള പ്രായം നൽകുക.'],
+    checkTitle: ['From the list below, mark everything that applies to you (one or more).', 'താഴെ പറയുന്ന കാര്യങ്ങളിൽ നിന്ന് താങ്കൾക്ക് ബാധകമായവയെല്ലാം (ഒന്നോ അതിൽ കൂടുതലോ) അടയാളപ്പെടുത്തുക.'],
+    none: ['None of these', 'ഇതൊന്നും ബാധകമല്ല'],
+    p2Hint: ['You do not need to add up any scores.', 'സ്കോർ കൂട്ടേണ്ടതില്ല.'],
+    elTitle: ['You should have the kidney screening test as soon as possible', 'കിഡ്നി സ്ക്രീനിംഗ് ടെസ്റ്റിന് എത്രയും വേഗം വിധേയമാകേണ്ടതാണ്'],
+    elBody: ['Peace Home will contact you right away about this.', 'ഈ കാര്യത്തിനായി പീസ് ഹോം നിങ്ങളെ ഉടൻ ബന്ധപ്പെടുന്നതാണ്.'],
+    why1: ['You marked a condition in Part I.', 'ഭാഗം I-ൽ നിങ്ങൾ ഒരു കാര്യം അടയാളപ്പെടുത്തി.'],
+    why2: ['Your Part II answers reached the level where the test is advised.', 'ഭാഗം II-ലെ നിങ്ങളുടെ ഉത്തരങ്ങൾ ടെസ്റ്റ് നിർദ്ദേശിക്കുന്ന നിലയിലെത്തി.'],
+    nextHead: ['What happens next', 'തുടർന്ന് എന്ത് സംഭവിക്കും'],
+    sCommunity: ['Community screening', 'കമ്മ്യൂണിറ്റി സ്ക്രീനിങ്'], sTest: ['Kidney screening test', 'കിഡ്നി സ്ക്രീനിങ് ടെസ്റ്റ്'],
+    sConsult: ['Consultation with a kidney specialist (nephrologist)', 'കിഡ്നി രോഗ വിദഗ്ധനുമായിട്ടുള്ള (Nephrologist) കൺസൾട്ടേഷൻ'],
+    sFollow: ['Follow-up', 'ഫോളോ അപ്പ്'], srDone: ['done', 'പൂർത്തിയായി'], srNext: ['next step', 'അടുത്ത ഘട്ടം'],
+    share: ['Share contact details', 'ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ നൽകുക'], notNow: ['Not now', 'ഇപ്പോൾ വേണ്ട'],
+    noTitle: ['The kidney screening test is not advised right now', 'ഇപ്പോൾ കിഡ്നി സ്ക്രീനിംഗ് ടെസ്റ്റ് നിർദ്ദേശിക്കുന്നില്ല'],
+    noBody: ['Based on your answers, you do not need the test at this time. If your health changes, you can answer again.', 'നിങ്ങളുടെ ഉത്തരങ്ങൾ അനുസരിച്ച് ഇപ്പോൾ ടെസ്റ്റ് ആവശ്യമില്ല. ആരോഗ്യസ്ഥിതി മാറിയാൽ വീണ്ടും ഉത്തരം നൽകാം.'],
+    note: ['A screening check only, not a diagnosis.', 'ഇത് ഒരു സ്ക്രീനിംഗ് പരിശോധന മാത്രമാണ്, രോഗനിർണയമല്ല.'],
+    done: ['Done', 'പൂർത്തിയായി'], retake: ['Answer again', 'വീണ്ടും ഉത്തരം നൽകുക'],
+    cTitle: ['Contact details', 'ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ'], cCancel: ['Cancel', 'റദ്ദാക്കുക'],
+    cName: ['Name', 'പേര്'], cMobile: ['Mobile number', 'മൊബൈൽ നമ്പർ'], cShared: ['Shared only with the Peace Home care team.', 'പീസ് ഹോം കെയർ ടീമുമായി മാത്രം പങ്കിടുന്നു.'],
+    cSend: ['Send to care team', 'കെയർ ടീമിന് അയയ്ക്കുക'],
+    cNameBad: ['Enter your name.', 'നിങ്ങളുടെ പേര് നൽകുക.'], cMobBad: ['Mobile number needs 10 digits.', 'മൊബൈൽ നമ്പറിന് 10 അക്കം വേണം.'],
+    cThanks: ['Peace Home has your details and will contact you.', 'പീസ് ഹോമിന് നിങ്ങളുടെ വിവരങ്ങൾ ലഭിച്ചു, അവർ നിങ്ങളെ ബന്ധപ്പെടും.'],
+    savedSynced: ['Your answers were sent to the care team.', 'നിങ്ങളുടെ ഉത്തരങ്ങൾ കെയർ ടീമിന് അയച്ചു.'],
+    savedLocal: ['Saved on this device.', 'ഈ ഉപകരണത്തിൽ സേവ് ചെയ്തു.'],
+    savedQueued: ['Saved on this device. It will be sent when a connection is available.', 'ഈ ഉപകരണത്തിൽ സേവ് ചെയ്തു. കണക്ഷൻ ലഭിക്കുമ്പോൾ അയയ്ക്കും.']
+  };
+  function t(k) { return T[k][S.lang === 'ml' ? 1 : 0]; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function lab(x) { return S.lang === 'ml' ? x.ml : x.en; }
+
+  /* ---------- icons ---------- */
+  var ICON = {
+    check: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    back: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    export: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    yes: '<svg class="st" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="var(--accent-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    no: '<svg class="st" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+  };
+  var SUN = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  var MOON = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z" fill="currentColor"/></svg>';
+
+  function applyTheme() {
+    document.documentElement.setAttribute('data-theme', S.theme === 'dark' ? 'dark' : 'light');
+    try { localStorage.setItem(THEME_KEY, S.theme); } catch (e) { /* storage unavailable */ }
+  }
+  function themeSw() {
+    var dark = S.theme === 'dark';
+    return '<button class="tsw" role="switch" aria-checked="' + dark + '" aria-label="' + esc(t('darkMode')) + '" data-act="theme"><span class="trk"><span class="bg l">' + SUN + '</span><span class="bg r">' + MOON + '</span><span class="th">' + (dark ? MOON : SUN) + '</span></span></button>';
+  }
+  function langSeg() {
+    return '<div class="seg" role="group" aria-label="' + esc(t('language')) + '">' +
+      '<button data-act="lang" data-v="en" aria-pressed="' + (S.lang === 'en') + '">English</button>' +
+      '<button data-act="lang" data-v="ml" aria-pressed="' + (S.lang === 'ml') + '">മലയാളം</button></div>';
+  }
+  function topbar(showBack) {
+    return '<div class="topbar">' + (showBack ? '<button class="btn quiet small" data-act="back">' + ICON.back + t('back') + '</button>' : '<span></span>') + '<div class="tools">' + langSeg() + themeSw() + '</div></div>';
+  }
+
+  /* ---------- resident screens ---------- */
+  function stepValid(k) {
+    if (k === 'age') return validAge(S.a.age);
+    return k === 'p1' ? S.ack1 : S.ack2;
+  }
+  function tickRow(x) {
+    var on = S.a[x.id] === true;
+    return '<button class="row" role="checkbox" aria-checked="' + on + '" data-act="tick" data-id="' + x.id + '"><span class="lbl">' + esc(lab(x)) + '</span><span class="tick box">' + ICON.check + '</span></button>';
+  }
+  function noneRow(part, items) {
+    var none = S['ack' + part] && !items.some(function (x) { return S.a[x.id] === true; });
+    return '<button class="row subtle" role="checkbox" aria-checked="' + none + '" data-act="none" data-p="' + part + '"><span class="lbl">' + t('none') + '</span><span class="tick box">' + ICON.check + '</span></button>';
+  }
+  function welcome() {
+    return '<div class="app">' + topbar(false) +
+      '<main class="screen"><div class="eyebrow" style="margin-top:8px;color:var(--ink-2)">' + t('brandSub') + '</div><h1 class="title" id="pagehead" tabindex="-1">' + t('wTitle') + '</h1><p class="lead">' + t('wLead') + '</p>' +
+      '<div class="group" style="margin-top:24px">' +
+      '<button class="row" role="checkbox" aria-checked="' + S.consent + '" data-act="toggle" data-v="consent"><span class="lbl">' + t('consent') + '</span><span class="tick box">' + ICON.check + '</span></button>' +
+      '<button class="row" role="checkbox" aria-checked="' + S.assisted + '" data-act="toggle" data-v="assisted"><span class="lbl">' + t('assisted') + '</span><span class="tick box">' + ICON.check + '</span></button></div>' +
+      '<p class="footer" style="text-align:left;padding-top:20px">' + t('note') + '</p></main>' +
+      '<div class="bar"><button class="btn" id="startBtn" data-act="start"' + (S.consent ? '' : ' disabled') + '>' + t('start') + '</button></div>' +
+      '<div class="footer"><button class="btn quiet small" data-act="care">' + t('careTeam') + '</button></div></div>';
+  }
+  function progressHTML(k) {
+    var i = STEPS.indexOf(k), part = k === 'age' ? t('aboutYou') : k === 'p1' ? t('partI') : t('partII');
+    var pct = Math.round((i / STEPS.length) * 100);
+    return '<div class="progress"><div class="cap">' + t('step') + ' ' + (i + 1) + ' ' + t('of') + ' ' + STEPS.length + ' · ' + part + '</div><div class="track" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100" aria-label="' + esc(part) + '"><i style="width:' + pct + '%"></i></div></div>';
+  }
+  function questionScreen() {
+    var k = STEPS[S.stepIdx], last = S.stepIdx === STEPS.length - 1, body, a = S.a.age;
+    if (k === 'age') {
+      var bad = S.touched && a !== undefined && !validAge(a);
+      body = '<h2 class="qh" id="qh" tabindex="-1">' + t('ageTitle') + '</h2><div class="field"><label for="age">' + t('ageLabel') + '</label><div class="unit"><input class="input tnum" id="age" type="number" inputmode="numeric" min="1" max="120" step="1" data-in="age" aria-describedby="ageErr"' + (bad ? ' aria-invalid="true"' : '') + ' value="' + esc(a == null ? '' : a) + '"><span>' + t('yrs') + '</span></div></div>' +
+        '<p class="errmsg" id="ageErr" role="alert" style="margin-top:12px"' + (bad ? '' : ' hidden') + '>' + t('ageBad') + '</p>';
+    } else if (k === 'p1') {
+      body = '<h2 class="qh" id="qh" tabindex="-1">' + esc(t('checkTitle')) + '</h2><div class="group" role="group" aria-labelledby="qh">' + noneRow(1, PART_I) + PART_I.map(tickRow).join('') + '</div>';
+    } else {
+      var items = PART_II.filter(function (x) { return !x.derived; });
+      body = '<h2 class="qh" id="qh" tabindex="-1">' + esc(t('checkTitle')) + '</h2><p class="help" style="margin:-8px 0 16px">' + t('p2Hint') + '</p><div class="group" role="group" aria-labelledby="qh">' + noneRow(2, items) + items.map(tickRow).join('') + '</div>';
+    }
+    return '<div class="app">' + topbar(true) + progressHTML(k) + '<main class="screen">' + body + '</main>' +
+      '<div class="bar"><button class="btn" id="nextBtn" data-act="next"' + (stepValid(k) ? '' : ' disabled') + '>' + (last ? t('seeResult') : t('next')) + '</button></div></div>';
+  }
+
+  function pathHTML() {
+    function li(cls, dot, title, sub, sr) {
+      return '<li class="' + cls + '"><span class="dot" aria-hidden="true">' + dot + '</span><div class="ptitle">' + title + (sr ? ' <span class="sr">(' + sr + ')</span>' : '') + '</div>' + (sub || '') + '</li>';
+    }
+    var tests = '<ul class="tests">' + TESTS.map(function (x) {
+      return '<li><b>' + esc(x.en) + '</b>' + (S.lang === 'ml' ? ' – ' + esc(x.ml) : ' – ' + esc(x.enNote)) + '</li>';
+    }).join('') + '</ul>';
+    return '<h2 class="subhead">' + t('nextHead') + '</h2><ol class="path">' +
+      li('is-done', ICON.check.replace('width="22" height="22"', 'width="16" height="16"'), t('sCommunity'), '', t('srDone')) +
+      li('now', '2', t('sTest'), tests, t('srNext')) +
+      li('', '3', t('sConsult'), '', '') + li('', '4', t('sFollow'), '', '') + '</ol>';
+  }
+
+  function resultScreen() {
+    var r = S.res, h = '<div class="app">' + topbar(false) + '<main class="screen">';
+    if (r.eligible) {
+      h += '<h1 class="title" id="pagehead" tabindex="-1">' + t('elTitle') + '</h1><p style="margin-top:4px">' + t('elBody') + '</p>';
+      h += '<p class="why">' + (r.part1Any ? t('why1') : '') + (r.part1Any && r.scoreMet ? ' ' : '') + (r.scoreMet ? t('why2') : '') + '</p>' + pathHTML();
+      if (S.contactSent) h += '<div class="done">' + ICON.check + '<span>' + t('cThanks') + '</span></div>';
+    } else {
+      h += '<h1 class="title" id="pagehead" tabindex="-1">' + t('noTitle') + '</h1><p style="margin-top:4px">' + t('noBody') + '</p>';
+    }
+    h += '<p class="saved" id="savedLine">' + savedText() + '</p><p class="footer" style="text-align:left;padding:12px 0 0">' + t('note') + '</p></main><div class="bar">';
+    if (r.eligible && !S.contactSent) h += '<button class="btn" data-act="contact">' + t('share') + '</button><button class="btn secondary" data-act="reset">' + t('notNow') + '</button>';
+    else if (r.eligible) h += '<button class="btn" data-act="reset">' + t('done') + '</button>';
+    else h += '<button class="btn" data-act="reset">' + t('done') + '</button><button class="btn secondary" data-act="retake">' + t('retake') + '</button>';
+    return h + '</div></div>';
+  }
+  function savedText() { return S.saveState === 'synced' ? t('savedSynced') : S.saveState === 'queued' ? t(S.standalone ? 'savedLocal' : 'savedQueued') : ''; }
+
+  function sheetHTML() {
+    if (!S.sheet) return '';
+    return '<dialog class="sheet" id="sheet" aria-labelledby="sheetTitle"><div class="grab" aria-hidden="true"></div><form id="contactForm" novalidate>' +
+      '<div class="sheethead"><h2 id="sheetTitle">' + t('cTitle') + '</h2><button type="button" class="btn quiet small" data-act="sheetclose">' + t('cCancel') + '</button></div>' +
+      '<div class="field"><label for="cn">' + t('cName') + '</label><input class="input" id="cn" type="text" autocomplete="name" data-in="cname" aria-describedby="cnErr" value="' + esc(S.contact.name) + '"><p class="errmsg" id="cnErr" role="alert" hidden>' + t('cNameBad') + '</p></div>' +
+      '<div class="field"><label for="cm">' + t('cMobile') + '</label><input class="input tnum" id="cm" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="9847012345" data-in="cmobile" aria-describedby="cmErr" value="' + esc(S.contact.mobile) + '"><p class="errmsg" id="cmErr" role="alert" hidden>' + t('cMobBad') + '</p></div>' +
+      '<p class="help">' + t('cShared') + '</p><button type="submit" class="btn">' + t('cSend') + '</button></form></dialog>';
+  }
+
+  /* ---------- care team ---------- */
+  function isCurrent(r) { return r && r.schema === SCHEMA; }
+  function allRecords() {
+    var map = {}, out = [];
+    Object.keys(S.records).forEach(function (id) { if (isCurrent(S.records[id])) map[id] = Object.assign({ id: id, local: false }, S.records[id]); });
+    S.queue.forEach(function (r) { if (isCurrent(r)) map[r.id] = Object.assign({}, r, { local: true }); });
+    Object.keys(map).forEach(function (id) {
+      var r = map[id];
+      try { r.res = scoreScreening(r.answers || {}, S.cfg); } catch (e) { r.res = null; }
+      out.push(r);
+    });
+    out.sort(function (a, b) {
+      var ae = a.res && a.res.eligible ? 1 : 0, be = b.res && b.res.eligible ? 1 : 0;
+      if (ae !== be) return be - ae;
+      var as = a.res ? a.res.score : -1, bs = b.res ? b.res.score : -1;
+      if (as !== bs) return bs - as;
+      return String(b.createdAt).localeCompare(String(a.createdAt));
+    });
+    return out;
+  }
+  function legacyIds() { return Object.keys(S.records).filter(function (id) { return !isCurrent(S.records[id]); }); }
+  function noContact(r) { return !!(r.res && r.res.eligible && !r.contact); }
+  function matchesFilter(r) {
+    var f = S.filter, x = r.res;
+    if (f === 'all') return true;
+    if (!x) return false;
+    if (f === 'eligible') return x.eligible;
+    if (f === 'not') return !x.eligible;
+    if (f === 'nocontact') return noContact(r);
+    return true;
+  }
+  function matchesQuery(r) {
+    var q = S.query.trim().toLowerCase(); if (!q) return true;
+    return !!r.contact && (String(r.contact.name).toLowerCase().indexOf(q) >= 0 || String(r.contact.mobile).indexOf(q) >= 0);
+  }
+  function fmtDate(iso) {
+    var d = new Date(iso); if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  }
+  function sideHTML(recs) {
+    var c = { all: recs.length, eligible: 0, not: 0, nocontact: 0 };
+    recs.forEach(function (r) { if (!r.res) return; if (r.res.eligible) c.eligible++; else c.not++; if (noContact(r)) c.nocontact++; });
+    var items = [['all', 'All screenings', ''], ['eligible', 'Eligible for the test', ICON.yes], ['not', 'Not eligible', ICON.no], ['nocontact', 'Eligible, no contact yet', '']];
+    return '<nav class="side" aria-label="Filters">' + items.map(function (it) {
+      return '<button class="item" data-act="filter" data-v="' + it[0] + '" aria-pressed="' + (S.careMode === 'records' && S.filter === it[0]) + '"><span class="l">' + it[2] + esc(it[1]) + '</span><span class="count">' + c[it[0]] + '</span></button>';
+    }).join('') + '<span class="sep"></span><button class="item" data-act="rules" aria-pressed="' + (S.careMode === 'rules') + '"><span class="l">Scoring rules</span></button></nav>';
+  }
+  function listHTML(recs) {
+    var shown = recs.filter(function (r) { return matchesFilter(r) && matchesQuery(r); });
+    var samples = recs.filter(function (r) { return r.sample; }).length;
+    var h = '<section class="listpane" aria-label="Screenings"><div class="field search"><label for="q" class="help">Search</label><input class="input" id="q" type="search" placeholder="Name or mobile number" data-in="query" value="' + esc(S.query) + '"></div>';
+    if (samples) {
+      h += S.confirm === 'rmsamples'
+        ? '<div class="banner" role="group" aria-label="Confirm"><span>Remove ' + samples + ' example screenings?</span><span style="display:flex;gap:8px"><button class="btn small quiet" data-act="confirmno">Cancel</button><button class="btn small danger" data-act="rmsamples"' + (S.busy ? ' disabled' : '') + '>Remove</button></span></div>'
+        : '<div class="banner info"><span>Includes ' + samples + ' example screenings.</span><button class="btn small quiet" data-act="confirmrm">Remove examples</button></div>';
+    }
+    if (!recs.length) {
+      h += '<div class="empty"><p>No screenings yet. They appear here as residents finish the checklist.</p><button class="btn" data-act="samples"' + (S.busy ? ' disabled' : '') + '>Load 12 example screenings</button></div>';
+    } else if (!shown.length) {
+      h += '<div class="empty">No screenings match.</div>';
+    } else {
+      h += '<div class="recs">' + shown.map(function (r) {
+        var x = r.res, el = x && x.eligible;
+        return '<button class="rec" data-act="open" data-id="' + esc(r.id) + '" aria-current="' + (S.careSel === r.id) + '"><span class="ic ' + (el ? 'yes' : 'no') + '">' + (el ? ICON.yes : ICON.no) + '</span>' +
+          '<span class="name">' + (r.contact ? esc(r.contact.name) : 'Unnamed resident') + '</span>' +
+          '<span class="sub tnum"><span>' + (x ? (el ? 'Test advised' : 'Not advised') : 'Check data') + '</span>' + (x ? '<span>Age ' + x.age + '</span><span>Score ' + x.score + '</span>' : '') + '<span>' + esc(fmtDate(r.createdAt)) + '</span>' +
+          (x && x.part1Any ? '<span class="tag">Part I</span>' : '') + (noContact(r) ? '<span class="tag">No contact yet</span>' : '') + (r.assisted ? '<span class="tag">Assisted</span>' : '') +
+          (r.sample ? '<span class="tag">Example</span>' : '') + (r.local ? '<span class="tag">This device only</span>' : '') + '</span></button>';
+      }).join('') + '</div>';
+    }
+    return h + '</section>';
+  }
+  function kv(a, b, cls) { return '<div class="kv"><span>' + a + '</span><span' + (cls ? ' class="' + cls + '"' : '') + '>' + b + '</span></div>'; }
+
+  function detailHTML(recs) {
+    var back = '<button class="btn quiet small only-compact" data-act="closedetail">' + ICON.back + 'Screenings</button>';
+    if (S.careMode === 'rules') return '<section class="detailpane" aria-label="Scoring rules">' + back + rulesHTML() + '</section>';
+    var r = recs.filter(function (x) { return x.id === S.careSel; })[0];
+    if (!r) return '<section class="detailpane">' + back + '<div class="empty">Select a screening to see how it was scored.</div></section>';
+    var x = r.res, el = x && x.eligible, a = r.answers || {};
+    var h = '<section class="detailpane" aria-label="Screening detail">' + back + '<div class="dhead"><h2>' + (r.contact ? esc(r.contact.name) : 'Unnamed resident') + '</h2><span class="pill ' + (el ? 'yes' : 'no') + '">' + (el ? ICON.yes : ICON.no) + (x ? (el ? 'Test advised' : 'Not advised') : 'Check data') + '</span></div>';
+    if (x) {
+      h += '<p class="grouplabel" style="margin-top:12px">Result</p><div class="group">' +
+        kv('Part I: items marked', x.part1.length + ' of ' + PART_I.length) +
+        kv('Part II score', x.score + ' (test advised from ' + x.threshold + ')') +
+        kv('Why', el ? (x.part1Any ? 'Part I' : '') + (x.part1Any && x.scoreMet ? ' and ' : '') + (x.scoreMet ? 'Part II score' : '') : 'Neither reached') + '</div>';
+    }
+    h += '<p class="grouplabel">Contact</p><div class="group">' + (r.contact ? kv('Name', esc(r.contact.name)) + kv('Mobile', esc(r.contact.mobile)) : kv('No contact details given', '')) + '</div>';
+    h += '<p class="grouplabel">Completed</p><div class="group">' + kv('When', esc(fmtDate(r.createdAt))) + kv('Filled in by', r.assisted ? 'A helper' : 'The resident') + kv('Language', r.lang === 'ml' ? 'Malayalam' : 'English') + kv('Age', esc(a.age)) + '</div>';
+    h += '<p class="grouplabel">Part I answers</p><div class="group">' + PART_I.map(function (it) { return kv(esc(it.en), a[it.id] === true ? 'Yes' : 'No'); }).join('') + '</div>';
+    var pts = {}; if (x) x.items.forEach(function (i) { pts[i.id] = i.points; });
+    h += '<p class="grouplabel">Part II answers</p><div class="group">' + PART_II.map(function (it) {
+      var on = pts[it.id] !== undefined;
+      return kv(esc(it.en), on ? 'Yes, +' + pts[it.id] : 'No');
+    }).join('') + '</div>';
+    return h + '</section>';
+  }
+  function rulesHTML() {
+    var d = S.cfgDraft || S.cfg, can = S.db ? S.canEdit !== false : true;
+    var label = {}; PART_II.forEach(function (it) { label[it.key] = it.en; });
+    var groups = [['Eligibility', [['threshold', 'Test advised from Part II score']]], ['Age points (Part II items 4 and 5)', [['ageMid', 'Age 40 to 59'], ['ageHigh', 'Age 60 and above']]],
+      ['Other Part II items', ['obesity', 'stones', 'painkillers', 'diabetes', 'heartAttack', 'stroke', 'anaemia', 'smoking', 'familyKidney'].map(function (k) { return [k, label[k]]; })]];
+    var h = '<div class="dhead"><h2>Scoring rules</h2></div><p class="help">Values from the nephrologist-approved Community Screening form. Any Part I item always makes a person eligible. ' + (S.standalone ? 'Changes are saved on this device only and re-score the list.' : 'Saved changes apply to everyone and re-score the list.') + '</p>';
+    h += '<div class="banner" style="margin-top:12px"><span>The form says “more than four” in the Part II note and “four or more” in step 1. The default is 4. Confirm with the nephrologist.</span></div>';
+    groups.forEach(function (g) {
+      h += '<p class="grouplabel">' + g[0] + '</p><div class="group">' + g[1].map(function (p) {
+        return '<div class="kv"><label for="cfg_' + p[0] + '">' + esc(p[1]) + '</label><input class="input stepper" id="cfg_' + p[0] + '" type="number" inputmode="numeric" min="0" max="99" data-in="cfg" data-k="' + p[0] + '" value="' + esc(d[p[0]]) + '"' + (can ? '' : ' disabled') + '></div>';
+      }).join('') + '</div>';
+    });
+    h += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">';
+    h += S.confirm === 'cfgreset'
+      ? '<span style="align-self:center">Restore the form values for everyone?</span><button class="btn small quiet" data-act="confirmno">Cancel</button><button class="btn small danger" data-act="cfgreset">Restore</button>'
+      : '<button class="btn" data-act="cfgsave"' + (can ? '' : ' disabled') + '>Save rules</button><button class="btn secondary" data-act="confirmreset"' + (can ? '' : ' disabled') + '>Restore form values</button>';
+    h += '</div>';
+    if (S.msg) h += '<p class="note" role="status">' + esc(S.msg) + '</p>';
+    return h;
+  }
+  function careScreen() {
+    var h = '<div class="carewrap"><div class="caretop"><button class="btn quiet small" data-act="resident">' + ICON.back + 'Screening</button><h1>Clinic view</h1>' + themeSw() +
+      '<button class="btn secondary small" data-act="csv">' + ICON.export + 'Export CSV</button></div>';
+    h += '<div class="banner"><span>Use example or test data only until the consent wording and data storage are approved.</span></div>';
+    if (S.db && S.canEdit === false) return h + '<div class="empty">This view is for the care team. Ask the project owner to give you Editor access.</div></div>';
+    if (!S.db) h += '<div class="banner info"><span>Shared storage is not available in this view. Showing screenings saved on this device only.</span></div>';
+    if (S.dbErr) h += '<div class="banner"><span>' + esc(S.dbErr) + '</span></div>';
+    var old = legacyIds().length;
+    if (old) {
+      h += S.confirm === 'rmlegacy'
+        ? '<div class="banner" role="group" aria-label="Confirm"><span>Delete ' + old + ' screenings from the earlier draft questionnaire? This cannot be undone.</span><span style="display:flex;gap:8px"><button class="btn small quiet" data-act="confirmno">Cancel</button><button class="btn small danger" data-act="rmlegacy"' + (S.busy ? ' disabled' : '') + '>Delete</button></span></div>'
+        : '<div class="banner info"><span>' + old + ' screenings from the earlier draft questionnaire are hidden because the questions changed.</span><button class="btn small quiet" data-act="confirmlegacy">Delete them</button></div>';
+    }
+    if (S.msg && S.careMode !== 'rules') h += '<div class="banner info" role="status"><span>' + esc(S.msg) + '</span></div>';
+    var recs = allRecords(), open = S.careMode === 'rules' || !!S.careSel;
+    h += '<div class="care' + (open ? ' show-detail' : '') + '">' + sideHTML(recs) + listHTML(recs) + detailHTML(recs) + '</div></div>';
+    return h;
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    document.documentElement.lang = S.lang === 'ml' ? 'ml' : 'en';
+    var ae = document.activeElement, fk = null;
+    if (ae && ae.getAttribute && ae.getAttribute('data-act')) fk = '[data-act="' + ae.getAttribute('data-act') + '"]' + (ae.getAttribute('data-id') ? '[data-id="' + ae.getAttribute('data-id') + '"]' : '') + (ae.getAttribute('data-v') ? '[data-v="' + ae.getAttribute('data-v') + '"]' : '') + (ae.getAttribute('data-p') ? '[data-p="' + ae.getAttribute('data-p') + '"]' : '');
+    var h;
+    if (S.view === 'care') h = careScreen();
+    else if (S.screen === 'welcome') h = welcome();
+    else if (S.screen === 'result') h = resultScreen();
+    else h = questionScreen();
+    root.innerHTML = h + (S.view === 'resident' ? sheetHTML() : '');
+    if (S.view === 'resident' && S.sheet) {
+      var dlg = document.getElementById('sheet');
+      if (dlg && dlg.showModal) { dlg.showModal(); dlg.addEventListener('close', function () { S.sheet = false; }); var f = document.getElementById('cn'); if (f) f.focus(); }
+    } else if (S.focusQ) {
+      var hd = document.getElementById('qh') || document.getElementById('pagehead'); if (hd) hd.focus();
+    } else if (fk) {
+      var again = root.querySelector(fk); if (again) again.focus({ preventScroll: true });
+    }
+    S.focusQ = false;
+  }
+
+  /* ---------- storage ---------- */
+  function loadQueue() { try { return JSON.parse(localStorage.getItem(QKEY) || '[]'); } catch (e) { return []; } }
+  function saveQueue() { try { localStorage.setItem(QKEY, JSON.stringify(S.queue)); } catch (e) { /* storage unavailable */ } }
+  function strip(r) { return { schema: SCHEMA, answers: r.answers, createdAt: r.createdAt, lang: r.lang, assisted: !!r.assisted, contact: r.contact || null, sample: !!r.sample }; }
+  function enqueue(r) { S.queue = S.queue.filter(function (x) { return x.id !== r.id; }); S.queue.push(Object.assign({ schema: SCHEMA }, r)); saveQueue(); }
+  async function persist(r) {
+    if (S.db) { try { await S.db.doc('screenings/' + r.id).set(strip(r)); return 'synced'; } catch (e) { /* fall through */ } }
+    enqueue(r); return 'queued';
+  }
+  var syncing = false;
+  async function syncQueue() {
+    if (!S.db || syncing || !S.queue.length) return;
+    syncing = true;
+    try {
+      var items = S.queue.slice();
+      for (var i = 0; i < items.length; i++) {
+        try { await S.db.doc('screenings/' + items[i].id).set(strip(items[i])); S.queue = S.queue.filter(function (x) { return x.id !== items[i].id; }); saveQueue(); }
+        catch (e) { break; }
+      }
+    } finally { syncing = false; }
+    if (S.view === 'care') render();
+  }
+
+  /* ---------- flow ---------- */
+  function copy(o) { return JSON.parse(JSON.stringify(o)); }
+  function completeAnswers() {
+    var a = {}; a.age = S.a.age;
+    PART_I.forEach(function (x) { a[x.id] = S.a[x.id] === true; });
+    PART_II.forEach(function (x) { if (!x.derived) a[x.id] = S.a[x.id] === true; });
+    return a;
+  }
+  async function finish() {
+    var ans = completeAnswers();
+    S.res = scoreScreening(ans, S.cfg);
+    S.rec = { id: 'r_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7), schema: SCHEMA, createdAt: new Date().toISOString(), lang: S.lang, assisted: S.assisted, answers: copy(ans), contact: null, sample: false };
+    S.screen = 'result'; S.saveState = ''; S.sheet = false; S.contactSent = false; S.contact = { name: '', mobile: '' }; S.focusQ = true;
+    render(); window.scrollTo(0, 0);
+    S.saveState = await persist(S.rec);
+    var el = document.getElementById('savedLine'); if (el) el.textContent = savedText();
+  }
+  function resetFlow(keep) {
+    S.a = {}; S.ack1 = false; S.ack2 = false; S.touched = false; S.stepIdx = 0; S.screen = 'welcome'; S.rec = null; S.res = null; S.sheet = false; S.contactSent = false;
+    if (!keep) { S.consent = false; S.assisted = false; }
+  }
+  async function sendContact() {
+    var n = S.contact.name.trim(), m = S.contact.mobile.replace(/\s/g, ''), okN = !!n, okM = /^\d{10}$/.test(m);
+    document.getElementById('cnErr').hidden = okN; document.getElementById('cmErr').hidden = okM;
+    document.getElementById('cn').setAttribute('aria-invalid', String(!okN)); document.getElementById('cm').setAttribute('aria-invalid', String(!okM));
+    if (!okN) { document.getElementById('cn').focus(); return; }
+    if (!okM) { document.getElementById('cm').focus(); return; }
+    S.rec.contact = { name: n, mobile: m };
+    var queued = S.queue.some(function (x) { return x.id === S.rec.id; });
+    if (queued || !S.db) { enqueue(S.rec); syncQueue(); }
+    else {
+      try { await S.db.doc('screenings/' + S.rec.id).update({ contact: S.rec.contact }); }
+      catch (e) { enqueue(S.rec); S.saveState = 'queued'; }
+    }
+    var dlg = document.getElementById('sheet'); S.sheet = false; if (dlg && dlg.open) dlg.close();
+    S.contactSent = true; S.focusQ = true; render();
+  }
+
+  /* ---------- care actions ---------- */
+  function subscribe() {
+    if (!S.db || S.subscribed) return; S.subscribed = true;
+    S.db.collection('screenings').limit(1000).onSnapshot(function (snap) {
+      var m = {}; snap.docs.forEach(function (d) { m[d.id] = d.data(); });
+      S.records = m; S.dbErr = '';
+      S.queue = S.queue.filter(function (q) { return !m[q.id] || JSON.stringify(strip(q)) !== JSON.stringify(strip(Object.assign({ id: q.id }, m[q.id]))); });
+      saveQueue();
+      if (S.view === 'care' && !document.activeElement.matches('input')) render();
+    }, function (e) { S.dbErr = 'Could not load shared screenings (' + (e && e.code) + ').'; if (S.view === 'care') render(); });
+  }
+  /* Outside Claude there is no downloads capability, so use a normal browser download. */
+  function downloadFile(name, text) {
+    var url = URL.createObjectURL(new Blob(['\ufeff' + text], { type: 'text/csv;charset=utf-8' }));
+    var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  function csvCell(v) { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  async function exportCsv() {
+    var recs = allRecords(), head = ['id', 'completed', 'completed_by', 'language', 'name', 'mobile', 'age', 'eligible_for_test', 'reason', 'part1_marked', 'part2_score', 'example'];
+    PART_I.forEach(function (x) { head.push(x.id); }); PART_II.forEach(function (x) { head.push(x.id); });
+    var rows = [head.join(',')];
+    recs.forEach(function (r) {
+      var x = r.res || {}, a = r.answers || {}, pts = {}; (x.items || []).forEach(function (i) { pts[i.id] = 1; });
+      var why = !x.eligible ? '' : (x.part1Any ? 'part I' : '') + (x.part1Any && x.scoreMet ? ' + ' : '') + (x.scoreMet ? 'part II score' : '');
+      var row = [r.id, r.createdAt, r.assisted ? 'helper' : 'resident', r.lang, r.contact ? r.contact.name : '', r.contact ? r.contact.mobile : '', a.age, x.eligible ? 'yes' : 'no', why, (x.part1 || []).length, x.score, r.sample ? 'yes' : ''];
+      PART_I.forEach(function (it) { row.push(a[it.id] === true ? 'yes' : 'no'); });
+      PART_II.forEach(function (it) { row.push(pts[it.id] ? 'yes' : 'no'); });
+      rows.push(row.map(csvCell).join(','));
+    });
+    if (!recs.length) { S.msg = 'There are no screenings to export yet.'; render(); return; }
+    if (!S.dl) { downloadFile('kidney-screenings.csv', rows.join('\n')); S.msg = ''; render(); return; }
+    try { await S.dl.save({ filename: 'kidney-screenings.csv', data: rows.join('\n') }); S.msg = ''; }
+    catch (e) { S.msg = e && e.code === 'declined' ? '' : 'Could not save the file.'; }
+    render();
+  }
+  function sampleSet() {
+    var now = Date.now();
+    /* [age, items ticked, name, mobile] */
+    var defs = [
+      [62, ['i1', 'ii6', 'ii1'], 'Asha K', '9847000001'],            /* Part I and score 4 */
+      [55, ['ii6', 'ii10', 'ii1'], null],                             /* score exactly 4 */
+      [48, ['ii6', 'ii10'], null],                                    /* score 3, just below */
+      [71, ['i2', 'ii7'], 'Moideen P', '9847000004'],                 /* Part I */
+      [44, ['i5'], 'Suresh V', '9847000005'],                         /* Part I only, score 1 */
+      [36, ['ii2', 'ii3', 'ii11'], null],                             /* score 3 */
+      [33, [], null],                                                 /* nothing */
+      [58, ['i3', 'i4'], 'Leela T', '9847000008'],                    /* confirmed kidney disease, past dialysis */
+      [66, ['ii8', 'ii9'], null],                                     /* age 60+ (2) + 2 = 4, no Part I */
+      [52, ['ii11', 'ii9'], null],                                    /* 1 + 1 + 1 = 3 */
+      [41, ['ii1', 'ii3', 'ii10', 'ii11'], 'Joseph K', '9847000011'], /* score 5 */
+      [29, ['i1'], 'Anjali R', '9847000012']                          /* Part I, score 0 */
+    ];
+    return defs.map(function (d, i) {
+      var a = { age: d[0] };
+      PART_I.forEach(function (x) { a[x.id] = d[1].indexOf(x.id) >= 0; });
+      PART_II.forEach(function (x) { if (!x.derived) a[x.id] = d[1].indexOf(x.id) >= 0; });
+      return { id: 'ex_' + (i + 1), data: { schema: SCHEMA, answers: a, createdAt: new Date(now - i * 7.3 * 3600 * 1000).toISOString(), lang: i % 3 === 0 ? 'ml' : 'en', assisted: i % 4 === 1, contact: d[2] ? { name: d[2], mobile: d[3] } : null, sample: true } };
+    });
+  }
+  async function loadSamples() {
+    S.busy = 'samples'; S.msg = ''; render();
+    try {
+      var set = sampleSet();
+      for (var i = 0; i < set.length; i++) {
+        if (S.db) await S.db.doc('screenings/' + set[i].id).set(set[i].data);
+        else enqueue(Object.assign({ id: set[i].id }, set[i].data));
+      }
+    } catch (e) { S.msg = 'Could not add the examples (' + (e && e.code) + ').'; }
+    S.busy = ''; render();
+  }
+  async function removeSamples() {
+    S.busy = 'rm'; S.msg = ''; S.confirm = ''; render();
+    try {
+      var ids = allRecords().filter(function (r) { return r.sample; }).map(function (r) { return r.id; });
+      S.queue = S.queue.filter(function (r) { return !r.sample; }); saveQueue();
+      for (var i = 0; i < ids.length; i++) { if (S.db && S.records[ids[i]]) await S.db.doc('screenings/' + ids[i]).delete(); }
+      ids.forEach(function (id) { delete S.records[id]; if (S.careSel === id) S.careSel = null; });
+    } catch (e) { S.msg = 'Could not remove the examples (' + (e && e.code) + ').'; }
+    S.busy = ''; render();
+  }
+  async function removeLegacy() {
+    S.busy = 'legacy'; S.msg = ''; S.confirm = ''; render();
+    try {
+      var ids = legacyIds();
+      for (var i = 0; i < ids.length; i++) { await S.db.doc('screenings/' + ids[i]).delete(); delete S.records[ids[i]]; }
+      S.msg = 'Deleted ' + ids.length + ' earlier-draft screenings.';
+    } catch (e) { S.msg = 'Could not delete them (' + (e && e.code) + ').'; }
+    S.busy = ''; render();
+  }
+  async function saveCfg(reset) {
+    var d = reset ? Object.assign({}, DEFAULT_CONFIG) : Object.assign({}, S.cfg, S.cfgDraft || {});
+    Object.keys(d).forEach(function (k) { if (k !== 'version') d[k] = Number(d[k]); });
+    S.confirm = '';
+    try { if (S.db) await S.db.doc('config/criteria').set(d); else localStorage.setItem(CFGKEY, JSON.stringify(d)); S.cfg = d; S.cfgDraft = null; S.msg = reset ? 'Form values restored.' : 'Scoring rules saved.'; }
+    catch (e) { S.msg = 'Could not save the rules (' + (e && e.code) + ').'; }
+    render();
+  }
+
+  /* ---------- events ---------- */
+  function refreshNext() { var b = document.getElementById('nextBtn'); if (b) b.disabled = !stepValid(STEPS[S.stepIdx]); }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-act]'); if (!el) return;
+    var act = el.getAttribute('data-act'), v = el.getAttribute('data-v');
+    if (act === 'lang') { S.lang = v; render(); }
+    else if (act === 'theme') { S.theme = S.theme === 'dark' ? 'light' : 'dark'; applyTheme(); render(); }
+    else if (act === 'toggle') { S[v] = !S[v]; render(); }
+    else if (act === 'start') { if (!S.consent) return; S.screen = 'q'; S.stepIdx = 0; S.focusQ = true; render(); window.scrollTo(0, 0); }
+    else if (act === 'tick') {
+      var id = el.getAttribute('data-id'); S.a[id] = S.a[id] === true ? false : true;
+      if (id.charAt(1) === 'i' || id.indexOf('ii') === 0) S.ack2 = true; else S.ack1 = true;
+      render();
+    }
+    else if (act === 'none') {
+      var p = el.getAttribute('data-p'), list = p === '1' ? PART_I : PART_II.filter(function (x) { return !x.derived; });
+      list.forEach(function (x) { S.a[x.id] = false; }); S['ack' + p] = true; render();
+    }
+    else if (act === 'back') { if (S.stepIdx === 0) S.screen = 'welcome'; else S.stepIdx--; S.focusQ = true; render(); window.scrollTo(0, 0); }
+    else if (act === 'next') {
+      if (!stepValid(STEPS[S.stepIdx])) return;
+      if (S.stepIdx >= STEPS.length - 1) { finish(); return; }
+      S.stepIdx++; S.focusQ = true; render(); window.scrollTo(0, 0);
+    }
+    else if (act === 'contact') { S.sheet = true; render(); }
+    else if (act === 'sheetclose') { var dlg = document.getElementById('sheet'); S.sheet = false; if (dlg && dlg.open) dlg.close(); render(); }
+    else if (act === 'reset') { resetFlow(false); render(); window.scrollTo(0, 0); }
+    else if (act === 'retake') { resetFlow(true); render(); window.scrollTo(0, 0); }
+    else if (act === 'care') { S.view = 'care'; subscribe(); render(); window.scrollTo(0, 0); }
+    else if (act === 'resident') { S.view = 'resident'; render(); window.scrollTo(0, 0); }
+    else if (act === 'filter') { S.filter = v; S.careMode = 'records'; S.careSel = null; render(); }
+    else if (act === 'rules') { S.careMode = 'rules'; S.careSel = null; S.msg = ''; render(); }
+    else if (act === 'open') { S.careMode = 'records'; S.careSel = el.getAttribute('data-id'); render(); window.scrollTo(0, 0); }
+    else if (act === 'closedetail') { S.careSel = null; S.careMode = 'records'; render(); }
+    else if (act === 'csv') { exportCsv(); }
+    else if (act === 'samples') { loadSamples(); }
+    else if (act === 'confirmrm') { S.confirm = 'rmsamples'; render(); }
+    else if (act === 'confirmlegacy') { S.confirm = 'rmlegacy'; render(); }
+    else if (act === 'confirmreset') { S.confirm = 'cfgreset'; render(); }
+    else if (act === 'confirmno') { S.confirm = ''; render(); }
+    else if (act === 'rmsamples') { removeSamples(); }
+    else if (act === 'rmlegacy') { removeLegacy(); }
+    else if (act === 'cfgsave') { saveCfg(false); }
+    else if (act === 'cfgreset') { saveCfg(true); }
+  });
+  document.addEventListener('input', function (e) {
+    var el = e.target, k = el.getAttribute && el.getAttribute('data-in'); if (!k) return;
+    if (k === 'age') {
+      S.a.age = el.value === '' ? undefined : Number(el.value);
+      if (validAge(S.a.age) || S.a.age === undefined) { el.removeAttribute('aria-invalid'); var m = document.getElementById('ageErr'); if (m) m.hidden = true; }
+      refreshNext();
+    }
+    else if (k === 'cname') { S.contact.name = el.value; }
+    else if (k === 'cmobile') { S.contact.mobile = el.value.replace(/\D/g, '').slice(0, 10); if (el.value !== S.contact.mobile) el.value = S.contact.mobile; }
+    else if (k === 'query') { S.query = el.value; var pos = el.selectionStart; render(); var nq = document.getElementById('q'); if (nq) { nq.focus(); try { nq.setSelectionRange(pos, pos); } catch (x) { /* not supported */ } } }
+    else if (k === 'cfg') { S.cfgDraft = S.cfgDraft || Object.assign({}, S.cfg); S.cfgDraft[el.getAttribute('data-k')] = el.value; }
+  });
+  document.addEventListener('focusout', function (e) {
+    var el = e.target; if (!el.getAttribute || el.getAttribute('data-in') !== 'age') return;
+    S.touched = true;
+    if (el.value !== '' && !validAge(S.a.age)) { el.setAttribute('aria-invalid', 'true'); var m = document.getElementById('ageErr'); if (m) m.hidden = false; }
+  });
+  document.addEventListener('submit', function (e) { if (e.target && e.target.id === 'contactForm') { e.preventDefault(); sendContact(); } });
+  window.addEventListener('online', syncQueue);
+
+  /* ---------- boot ---------- */
+  S.queue = loadQueue();
+  try { if (localStorage.getItem(THEME_KEY) === 'dark') S.theme = 'dark'; } catch (e) { /* storage unavailable */ }
+  applyTheme();
+  S.standalone = !(window.claude && window.claude.use);
+  if (S.standalone) { try { var sc = JSON.parse(localStorage.getItem(CFGKEY) || 'null'); if (sc) S.cfg = Object.assign({}, DEFAULT_CONFIG, sc); } catch (e) { /* ignore */ } }
+  try { if (location.hash === '#care') S.view = 'care'; } catch (e) { /* no hash */ }
+  render();
+  (async function () {
+    if (!window.claude || !window.claude.use) return;
+    try { S.db = await window.claude.use('db'); } catch (e) { S.db = null; }
+    try { S.user = await window.claude.use('user'); if (S.user) S.canEdit = await S.user.canEdit(); } catch (e) { /* no user */ }
+    try { S.dl = await window.claude.use('downloads'); } catch (e) { S.dl = null; }
+    if (S.db) {
+      try {
+        S.db.doc('config/criteria').onSnapshot(function (snap) {
+          if (snap.exists) { S.cfg = Object.assign({}, DEFAULT_CONFIG, snap.data()); if (S.view === 'care' && !document.activeElement.matches('input')) render(); }
+        }, function () { /* keep defaults */ });
+      } catch (e) { /* keep defaults */ }
+      if (S.view === 'care') subscribe();
+      syncQueue();
+    }
+    if (S.view === 'care') render();
+  })();
+})();
+</script>
+</body>
+</html>
