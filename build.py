@@ -7,7 +7,7 @@ tpl = (src / "app.template.html").read_text(encoding="utf-8")
 html = tpl.replace("/*@@SCORING@@*/", (src / "scoring.js").read_text(encoding="utf-8")) \
           .replace("/*@@CRITERIA@@*/", (src / "criteria.js").read_text(encoding="utf-8"))
 head, body = html.split('<div id="app"', 1)
-page = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+page = ('<!doctype html>\n<html lang="ml">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="robots" content="noindex">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
         '<style>:root{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>\n'
         + head + '</head>\n<body>\n<div id="app"' + body.replace('</script>\n', '</script>\n', 1))

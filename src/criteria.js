@@ -6,7 +6,9 @@ var PART_I = [
   { id: 'i2', en: 'Heart disease', ml: 'ഹൃദ്രോഗമുള്ളവർ' },
   { id: 'i3', en: 'Kidney disease already confirmed', ml: 'ഇതിനകം കിഡ്നി രോഗം സ്ഥിരീകരിച്ചവർ' },
   { id: 'i4', en: 'Needed dialysis at any time in the past', ml: 'മുൻപ് എപ്പോഴെങ്കിലും ഡയാലിസിസിന് വിധേയമായിട്ടുള്ളവർ' },
-  { id: 'i5', en: 'Higher than normal protein (albumin) in the urine', ml: 'മൂത്രത്തിൽ പ്രോട്ടീനിന്റെ (ആൽബുമിൻ) അളവ് കൂടുതലുള്ളവർ' }
+  { id: 'i5', en: 'Higher than normal protein (albumin) in the urine', ml: 'മൂത്രത്തിൽ പ്രോട്ടീനിന്റെ (ആൽബുമിൻ) അളവ് കൂടുതലുള്ളവർ' },
+  { id: 'i6', en: 'Uncontrolled diabetes (FBS ≥126; HbA1c ≥7, 3-month average)', ml: 'നിയന്ത്രണത്തിലല്ലാത്ത പ്രമേഹമുള്ളവർ (FBS ≥126; HbA1c ≥7, 3 മാസത്തെ ശരാശരി)' }
+
 ];
 
 /* Part II. `derived: true` rows come from age and are not ticked by the resident. */

@@ -285,8 +285,8 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, .45); }
   }
   function langSeg() {
     return '<div class="seg" role="group" aria-label="' + esc(t('language')) + '">' +
-      '<button data-act="lang" data-v="en" aria-pressed="' + (S.lang === 'en') + '">English</button>' +
-      '<button data-act="lang" data-v="ml" aria-pressed="' + (S.lang === 'ml') + '">മലയാളം</button></div>';
+      '<button data-act="lang" data-v="ml" aria-pressed="' + (S.lang === 'ml') + '">മലയാളം</button>' +
+      '<button data-act="lang" data-v="en" aria-pressed="' + (S.lang === 'en') + '">English</button></div>';
   }
   function topbar(showBack) {
     return '<div class="topbar">' + (showBack ? '<button class="btn quiet small" data-act="back">' + ICON.back + t('back') + '</button>' : '<span></span>') + '<div class="tools">' + langSeg() + themeSw() + '</div></div>';
@@ -513,7 +513,7 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, .45); }
 
   /* ---------- render ---------- */
   function render() {
-    document.documentElement.lang = S.lang === 'ml' ? 'ml' : 'en';
+    document.documentElement.lang = (S.view === 'resident' && S.lang === 'ml') ? 'ml' : 'en';
     var ae = document.activeElement, fk = null;
     if (ae && ae.getAttribute && ae.getAttribute('data-act')) fk = '[data-act="' + ae.getAttribute('data-act') + '"]' + (ae.getAttribute('data-id') ? '[data-id="' + ae.getAttribute('data-id') + '"]' : '') + (ae.getAttribute('data-v') ? '[data-v="' + ae.getAttribute('data-v') + '"]' : '') + (ae.getAttribute('data-p') ? '[data-p="' + ae.getAttribute('data-p') + '"]' : '');
     var h;
@@ -575,7 +575,7 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, .45); }
   }
   function resetFlow(keep) {
     S.a = {}; S.ack1 = false; S.ack2 = false; S.touched = false; S.stepIdx = 0; S.screen = 'welcome'; S.rec = null; S.res = null; S.sheet = false; S.contactSent = false;
-    if (!keep) { S.consent = false; S.assisted = false; }
+    if (!keep) { S.consent = false; S.assisted = false; S.lang = 'ml'; }
   }
   async function sendContact() {
     var n = S.contact.name.trim(), m = S.contact.mobile.replace(/\s/g, ''), okN = !!n, okM = /^\d{10}$/.test(m);

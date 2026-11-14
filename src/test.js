@@ -9,7 +9,7 @@ const A = (o) => Object.assign({ age: 30 }, o || {});
 t('no items and age under 40 is not eligible, score 0', () => {
   const r = scoreScreening(A()); assert.strictEqual(r.eligible, false); assert.strictEqual(r.score, 0);
 });
-['i1', 'i2', 'i3', 'i4', 'i5'].forEach((id) => t('Part I item ' + id + ' alone makes a person eligible', () => {
+['i1', 'i2', 'i3', 'i4', 'i5','i6'].forEach((id) => t('Part I item ' + id + ' alone makes a person eligible', () => {
   const r = scoreScreening(A({ [id]: true })); assert.strictEqual(r.eligible, true); assert.strictEqual(r.part1Any, true); assert.strictEqual(r.score, 0);
 }));
 t('age bands: 39 gives 0, 40 gives 1, 59 gives 1, 60 gives 2', () => {
@@ -56,7 +56,7 @@ t('invalid or missing age throws', () => {
 t('every item has English and Malayalam text and unique ids', () => {
   const ids = PART_I.concat(PART_II).map((x) => x.id); assert.strictEqual(new Set(ids).size, ids.length);
   PART_I.concat(PART_II).forEach((x) => { assert.ok(x.en && x.ml, x.id); });
-  assert.strictEqual(PART_I.length, 5); assert.strictEqual(PART_II.length, 11);
+  assert.strictEqual(PART_I.length, 6); assert.strictEqual(PART_II.length, 11);
 });
 t('default config matches the form', () => {
   assert.deepStrictEqual([DEFAULT_CONFIG.threshold, DEFAULT_CONFIG.ageMid, DEFAULT_CONFIG.ageHigh], [4, 1, 2]);

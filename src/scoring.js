@@ -15,7 +15,7 @@ var DEFAULT_CONFIG = {
   diabetes: 1, heartAttack: 1, stroke: 1, anaemia: 1, smoking: 1, familyKidney: 1
 };
 
-var PART1_IDS = ['i1', 'i2', 'i3', 'i4', 'i5'];
+var PART1_IDS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6'];
 /* Part II items the resident ticks. Items 4 and 5 are worked out from age. */
 var PART2_TICK = [
   { id: 'ii1', key: 'obesity' }, { id: 'ii2', key: 'stones' }, { id: 'ii3', key: 'painkillers' },
